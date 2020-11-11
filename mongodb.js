@@ -5,12 +5,6 @@ const { MongoClient, ObjectID } = require('mongodb')
 const connectionURL = 'mongodb+srv://vikram305:vikram305@learningprojects.1zeq7.mongodb.net/?retryWrites=true&w=majority'
 const databaseName = 'task-manager'
 
-const id = new ObjectID()
-console.log(`id: ${id}`)
-console.log(`timestamp: ${id.getTimestamp()}`)
-console.log(`id.id ${id.id}`)
-console.log(`'id length: ${id.id.length}`)
-console.log(`id string length: ${id.toHexString().length}`)
 
 MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) => {
     if (error) {
@@ -22,67 +16,53 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
     const db = client.db(databaseName)
     console.log(`client db name:  ${client.db.name}`)
 
-    //inserting document with id
-    // db.collection('users').insertOne({
-    //     _id: id,
-    //     name: 'GHI',
-    //     age:21
-    // }, (error,result) => {
+
+    // db.collection('users').findOne({ name: 'DEF' }, (error,user) => {
     //     if(error){
-    //         return console.log('Unable to insert user')
-    //     }
-    //     console.log(result.ops)
+    //         return console.log('Unable to fetch user')
+    //     } 
+
+    //     console.log(user)
     // })
 
-    //insrting single document
-    // db.collection('users').insertOne({
-    //     name: 'DEF',
-    //     age:20
-    // }, (error,result) => {
+    // db.collection('users').findOne({ name: 'DEF', age:2}, (error,user) => {
     //     if(error){
-    //         return console.log('Unable to insert user')
-    //     }
-    //     console.log(result.ops)
+    //         return console.log('Unable to fetch user')
+    //     } 
+
+    //     console.log(user)
     // })
 
-    //inserting many documents
-    // db.collection('users').insertMany([
-    //     {
-    //         name:'XYZ',
-    //         age:29
-    //     },
-    //     {
-    //         name:'PQR',
-    //         age:24
-    //     }
-    // ], (error,result) => {
+
+    // db.collection('users').findOne({_id: "5faa8a72efe79942bc1b738c"}, (error,user) => {
     //     if(error){
-    //         return console.log('Unable to insert documents')
-    //     }
+    //         return console.log('Unable to fetch user')
+    //     } 
 
-    //     console.log(result.ops)
+    //     console.log(user)
     // })
 
-    //inserting tasks
-    // db.collection('tasks').insertMany([
-    //     {
-    //         description: 'Task 1',
-    //         completed: false
-    //     },
-    //     {
-    //         description: 'Task 2',
-    //         completed: false
-    //     },
-    //     {
-    //         description: 'Task 3',
-    //         completed: false
-    //     }
-    // ], (error, result) => {
-    //     if (error) {
-    //         return console.log('Unable to insert tasks')
-    //     }
+    // db.collection('users').findOne({_id: new ObjectID("5faa8a72efe79942bc1b738c")}, (error,user) => {
+    //     if(error){
+    //         return console.log('Unable to fetch user')
+    //     } 
 
-    //     console.log(result.ops)
+    //     console.log(user)
     // })
 
+    // db.collection('users').findOne({ age:20 }, (error,user) => {
+    //     if(error){
+    //         return console.log('Unable to fetch user')
+    //     } 
+
+    //     console.log(user)
+    // })
+
+    // db.collection('users').find({ age:20 }).toArray((error, users)=>{
+    //     console.log(users)
+    // })
+
+    db.collection('users').find({ age:20 }).count((error, count)=>{
+        console.log(count)
+    })
 })
