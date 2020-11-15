@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/vikram305/task-app#readme",
   "dependencies": {
+    "mongoose": "^5.10.14",
     "nodemon": "^2.0.6"
   }
 }
