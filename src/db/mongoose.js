@@ -5,5 +5,6 @@ const connectionURL=`mongodb+srv://vikram305:vikram305@learningprojects.1zeq7.mo
 mongoose.connect(connectionURL, {
     useNewUrlParser: true,
     useCreateIndex: true,
+    useFindAndModify: false,
 })
 
