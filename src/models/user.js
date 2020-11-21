@@ -62,6 +62,12 @@ userSchema.methods.toJSON = function() {
     return userObject
 }
 
+userSchema.virtual('tasks', {
+    ref: 'task',
+    localField: '_id',
+    foreignField: 'owner'
+})
+
 //generate token for a perticular user
 userSchema.methods.generateAuthToken = async function() {
     const user = this
