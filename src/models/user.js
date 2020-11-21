@@ -53,6 +53,15 @@ const userSchema = new mongoose.Schema({
     }]
 })
 
+userSchema.methods.toJSON = function() {
+    const user = this
+    const userObject = user.toObject()
+
+    delete userObject.password
+    delete userObject.tokens
+    return userObject
+}
+
 //generate token for a perticular user
 userSchema.methods.generateAuthToken = async function() {
     const user = this
