@@ -62,24 +62,22 @@ router.post('/users', async (req,res) => {
       res.send(req.user)
  })
  
- router.get('/users/:id', async (req,res) => {
-      const id=req.params.id
-      try{
-           const user = await User.findById(id)
-           if(!user){
-                return res.status(404).send()
-           }
+//  router.get('/users/:id', async (req,res) => {
+//       const id=req.params.id
+//       try{
+//            const user = await User.findById(id)
+//            if(!user){
+//                 return res.status(404).send()
+//            }
  
-           res.send(user)
-      } catch(error){
-           res.status(500).send()
-      }
+//            res.send(user)
+//       } catch(error){
+//            res.status(500).send()
+//       }
       
- })
+//  })
  
- router.patch('/users/:id', async (req,res) => {
-      const id = req.params.id
-      console.log(`id: ${id}`)
+ router.patch('/users/me', auth, async (req,res) => {
       const updates = Object.keys(req.body)
       const allowedOperatios = ['name', 'email','age', 'password']
       const isValidOperation = updates.every((update) => allowedOperatios.includes(update))
@@ -90,30 +88,20 @@ router.post('/users', async (req,res) => {
  
       try{
           
-          const user = await User.findById(id)
-
-          updates.forEach((update) => user[update] = req.body[update])
-          await user.save()
-           if(!user){
-                return res.status(404).send()
-           }
- 
-           res.send(user)
+          updates.forEach((update) => req.user[update] = req.body[update])
+          await req.user.save()
+           
+           res.send(req.user)
       } catch(error){
            res.status(500).send(error)
       }
  })
  
- router.delete('/users/:id', async (req,res) => {
-      const id = req.params.id
+ router.delete('/users/me', auth, async (req,res) => {
       try{
-           const user = await User.findByIdAndDelete(id)
- 
-           if(!user){
-                return res.status(404).send()
-           }
- 
-           res.send(user)
+           await req.user.remove()
+           console.log('user deleted')
+           res.send(req.user)
       } catch(error){
            res.status(500).send()
       }
