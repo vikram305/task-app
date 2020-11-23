@@ -142,7 +142,6 @@ router.post('/users', async (req,res) => {
  router.get('/users/:id/avatar', async (req,res) => {
       try{
           const user =  await User.findById(req.params.id)
-          console.log(user)
 
           if(!user || !user.avatar){
                throw new Error()
